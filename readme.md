@@ -1,12 +1,7 @@
 Rack Remove Param
 =================
 
-This can remove params from your POST reqs.
-
-It could be used for anything, but I created it because as of iOS6 apple seems 
-to be injecting extra params, causing rails to crash.
-
-Namely should_group_accessibility_children.
+This can remove unwanted params from your POST reqs.
 
 Install
 =======
