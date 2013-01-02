@@ -23,3 +23,11 @@ In config/application.rb
 
 Where 'should_group_accessibility_children' is the param you want to filter.
 
+To filter multiple params:
+
+In config/application.rb
+
+    config.middleware.insert 'Rack::RemoveParam', ['param1', 'param2']
+
+Where 'param1' & 'param2' are the params you want to filter.
+
