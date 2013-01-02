@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
 
   gem.files         = ['lib/rack-remove-param.rb', 'lib/rack/remove-param.rb']
   gem.name          = "rack-remove-param"
-  gem.version       = '0.0.1'
+  gem.version       = '0.0.2'
 
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'rack'

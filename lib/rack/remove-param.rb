@@ -1,11 +1,11 @@
 module Rack
   class RemoveParam
-    def initialize(app, param_to_filter)
-        @param_to_filter = param_to_filter
+    def initialize(app, params_to_filter)
+      process_params(params_to_filter)
       @app = app
     end
 
-    def call(env) 
+    def call(env)
       dup._call(env)
     end
 
@@ -13,7 +13,7 @@ module Rack
       @request = Rack::Request.new(env)
 
       if @request.post?
-        delete_param(@request.params, @param_to_filter)
+        delete_param(@request.params)
         env["rack.request.form_hash"] = @request.params
         env["rack.request.form_vars"] = Rack::Utils.build_query(@request.params)
       end
@@ -23,9 +23,16 @@ module Rack
     end
 
     private
-    def delete_param(hash, param)
-      hash.delete(param)
-      hash.each{|k, value| delete_param(value, param) if value.is_a?(Hash) }
+
+    def process_params(params)
+      @params_to_filter = params.is_a?(String) ? Array.new(1, params) : Array.new(params)
+    end
+
+    def delete_param(hash)
+      @params_to_filter.each do |param|
+        hash.delete(param)
+        hash.each{|k, value| delete_param(value, param) if value.is_a?(Hash) }
+      end
     end
   end
 end
