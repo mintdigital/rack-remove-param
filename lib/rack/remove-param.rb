@@ -28,8 +28,9 @@ module Rack
       @params_to_filter = params.is_a?(String) ? Array.new(1, params) : Array.new(params)
     end
 
-    def delete_param(hash)
-      @params_to_filter.each do |param|
+    def delete_param(hash, param_to_filter = nil)
+      to_filter = param_to_filter ? param_to_filter : @params_to_filter
+      to_filter.each do |param|
         hash.delete(param)
         hash.each{|k, value| delete_param(value, param) if value.is_a?(Hash) }
       end
